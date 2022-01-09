@@ -1,1 +1,3 @@
-console.log('Creando entorno de trabajo prueba');
+import Server from "./Server";
+
+new Server().getApp();
