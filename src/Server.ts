@@ -2,6 +2,7 @@ import express from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
 import helmet from 'helmet';
+import path from 'path';
 import Config from './config';
 import AppRouter from './routes/AppRouter';
 
@@ -15,6 +16,7 @@ export default class Server {
     this.createServer();
     this.middlewares();
     this.getRoutes();
+    this.getPhotos();
     this.startServer();
   }
 
@@ -36,6 +38,10 @@ export default class Server {
 
   private getRoutes(): void {
     this.app.use(AppRouter.getInstance());
+  }
+
+  private getPhotos(): void {
+    this.app.use('/uploads', express.static(path.resolve('uploads')));
   }
 
   private startServer(): void {

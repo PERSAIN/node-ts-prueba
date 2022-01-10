@@ -1,4 +1,4 @@
-import { Schema, model } from 'mongoose';
+import { Schema, model, Document } from 'mongoose';
 
 const CardSchema = new Schema(
   {
@@ -12,4 +12,11 @@ const CardSchema = new Schema(
   }
 );
 
-export default model('Card', CardSchema);
+export interface ICard extends Document {
+  title: string,
+  photoPath: string,
+  description: string,
+  shortDescription: string
+}
+
+export default model<ICard>('Card', CardSchema);

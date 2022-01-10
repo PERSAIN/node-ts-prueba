@@ -2,8 +2,8 @@ import AppRouter from "./AppRouter";
 
 const router = AppRouter.getInstance();
 
-/* class CardRoutes {
+class CardRoutes {
   routes() {
-    router.get('/');
+    router.route('/');
   }
-} */
+}
