@@ -21,7 +21,13 @@ export default class Config {
     return process.env.PORT || '3000';
   }
 
-  public get Cors(): string {
+  public get cors(): string {
     return process.env.CORS || '*';
   }
+
+  public get mongoUri(): string {
+    return process.env.MONGODB_URI || "mongodb://localhost/prueba-typescript";
+  }
+
 }
+

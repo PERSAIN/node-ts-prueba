@@ -23,9 +23,16 @@ var Config = /** @class */ (function () {
         enumerable: false,
         configurable: true
     });
-    Object.defineProperty(Config.prototype, "Cors", {
+    Object.defineProperty(Config.prototype, "cors", {
         get: function () {
             return process.env.CORS || '*';
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(Config.prototype, "mongoUri", {
+        get: function () {
+            return process.env.MONGODB_URI || "mongodb://localhost/prueba-typescript";
         },
         enumerable: false,
         configurable: true

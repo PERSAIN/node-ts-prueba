@@ -3,8 +3,9 @@ import morgan from 'morgan';
 import cors from 'cors';
 import helmet from 'helmet';
 import Config from './config';
+import AppRouter from './routes/AppRouter';
 
-const config : Config = Config.getInstance();
+const config: Config = Config.getInstance();
 
 export default class Server {
   private app!: express.Application;
@@ -13,6 +14,7 @@ export default class Server {
   constructor() {
     this.createServer();
     this.middlewares();
+    this.getRoutes();
     this.startServer();
   }
 
@@ -30,6 +32,10 @@ export default class Server {
     this.app.use(express.json());// Is based in bodyParser
     this.app.use(cors());
     this.app.use(helmet());
+  }
+
+  private getRoutes(): void {
+    this.app.use(AppRouter.getInstance());
   }
 
   private startServer(): void {

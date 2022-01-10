@@ -8,12 +8,14 @@ var morgan_1 = __importDefault(require("morgan"));
 var cors_1 = __importDefault(require("cors"));
 var helmet_1 = __importDefault(require("helmet"));
 var config_1 = __importDefault(require("./config"));
+var AppRouter_1 = __importDefault(require("./routes/AppRouter"));
 var config = config_1.default.getInstance();
 var Server = /** @class */ (function () {
     function Server() {
         this.port = config.port;
         this.createServer();
         this.middlewares();
+        this.getRoutes();
         this.startServer();
     }
     Server.prototype.getApp = function () {
@@ -28,6 +30,9 @@ var Server = /** @class */ (function () {
         this.app.use(express_1.default.json()); // Is based in bodyParser
         this.app.use((0, cors_1.default)());
         this.app.use((0, helmet_1.default)());
+    };
+    Server.prototype.getRoutes = function () {
+        this.app.use(AppRouter_1.default.getInstance());
     };
     Server.prototype.startServer = function () {
         var _this = this;
