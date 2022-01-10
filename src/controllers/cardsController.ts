@@ -1,25 +1,67 @@
 import { Request, Response } from 'express';
+import path from 'path';
+import fs from 'fs-extra';
 
 import CardModel, { ICard } from '../database/models/CardModel';
 
 export default class CardsController {
-  getCard(req: Request, res: Response): void {
-    res.json({ message: 'gettingOnecard' });
+  async getCard(req: Request, res: Response): Promise<Response> {
+    try {
+      const { id } = req.params;
+      const card = await CardModel.findById(id);
+      return res.status(200).json(card);
+    } catch (error) {
+      return res.status(404).json(error);
+    }
   }
 
-  getCards(req: Request, res: Response) {
-    res.json({ message: 'gettingAllTheCards' });
+  async getCards(req: Request, res: Response): Promise<Response> {
+    try {
+      const cards = await CardModel.find();
+      return res.status(200).json(cards);
+    } catch (error) {
+      return res.status(404).json(error);
+    }
   }
 
-  createCard(req: Request, res: Response) {
-    res.json({ message: 'createCard' });
+  async createCard(req: Request, res: Response): Promise<Response> {
+    const { title, description, shortDescription } = req.body;
+    const newCard = {
+      title: title,
+      photoPath: req.file?.path,
+      description: description,
+      shortDescription: shortDescription
+    };
+    const card: ICard = new CardModel(newCard);
+    await card.save();
+    return res.status(201).json({ message: 'createdCard', card });
   }
 
-  updateCard(req: Request, res: Response) {
-    res.json({ message: 'updatingCard' });
+  async updateCard(req: Request, res: Response): Promise<Response> {
+    try {
+      const { id } = req.params;
+      const { title, description } = req.body;
+      const updatedCard = await CardModel.findByIdAndUpdate(id, {
+        title,
+        description
+      });
+      return res.status(200).json({
+        message: 'Successfully updated',
+        updatedCard
+      });
+    } catch (error) {
+      return res.status(404).json(error);
+    }
   }
 
-  deleteCard(req: Request, res: Response) {
-    res.json({ message: 'deletingCard' });
+  async deleteCard(req: Request, res: Response): Promise<Response> {
+    try {
+      const { id } = req.params;
+      const card = await CardModel.findByIdAndRemove(id);
+      if (card) await fs.unlink(path.resolve(card.photoPath));
+      return res.status(202).json({ message: 'cardDeleted', card });
+    } catch (error) {
+      return res.status(404).json(error);
+    }
   }
 }

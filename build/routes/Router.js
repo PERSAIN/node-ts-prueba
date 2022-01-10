@@ -9,6 +9,4 @@ var RouterInitializer = /** @class */ (function () {
     return RouterInitializer;
 }());
 exports.RouterInitializer = RouterInitializer;
-var routerInitializer = new RouterInitializer();
-exports.default = routerInitializer.router;
 //# sourceMappingURL=Router.js.map

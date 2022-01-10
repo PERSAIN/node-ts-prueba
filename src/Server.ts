@@ -4,8 +4,6 @@ import cors from 'cors';
 import helmet from 'helmet';
 import path from 'path';
 import Config from './config';
-
-import Router from './routes/Router';
 import CardRoutes from './routes/cards.routes';
 
 const config: Config = Config.getInstance();
@@ -39,7 +37,6 @@ export default class Server {
   }
 
   private getRoutes(): void {
-    this.app.use(Router);
     this.app.use(CardRoutes);
   }
 

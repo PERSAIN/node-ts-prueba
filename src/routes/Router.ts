@@ -8,5 +8,3 @@ export class RouterInitializer {
   }
 }
 
-const routerInitializer = new RouterInitializer();
-export default routerInitializer.router;

@@ -31,12 +31,12 @@ var CardRoutes = /** @class */ (function (_super) {
     CardRoutes.prototype.routes = function () {
         var cardsController = new cardsController_1.default();
         this.router
-            .route('/card')
-            .get(cardsController.getCard)
+            .route('/cards')
+            .get(cardsController.getCards)
             .post(multer_1.default.single('photo'), cardsController.createCard)
             .put(cardsController.updateCard)
             .delete(cardsController.deleteCard);
-        this.router.route('/cards').get(cardsController.getCards);
+        this.router.route('/cards/:id').get(cardsController.getCard);
     };
     return CardRoutes;
 }(Router_1.RouterInitializer));

@@ -10,13 +10,13 @@ class CardRoutes extends RouterInitializer {
   routes() {
     const cardsController = new CardsController();
     this.router
-      .route('/card')
-      .get(cardsController.getCard)
+      .route('/cards')
+      .get(cardsController.getCards)
       .post(multer.single('photo'), cardsController.createCard)
       .put(cardsController.updateCard)
       .delete(cardsController.deleteCard);
 
-    this.router.route('/cards').get(cardsController.getCards);
+    this.router.route('/cards/:id').get(cardsController.getCard);
   }
 }
 

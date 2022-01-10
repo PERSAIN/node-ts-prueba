@@ -9,7 +9,6 @@ var cors_1 = __importDefault(require("cors"));
 var helmet_1 = __importDefault(require("helmet"));
 var path_1 = __importDefault(require("path"));
 var config_1 = __importDefault(require("./config"));
-var Router_1 = __importDefault(require("./routes/Router"));
 var cards_routes_1 = __importDefault(require("./routes/cards.routes"));
 var config = config_1.default.getInstance();
 var Server = /** @class */ (function () {
@@ -35,7 +34,6 @@ var Server = /** @class */ (function () {
         this.app.use((0, helmet_1.default)());
     };
     Server.prototype.getRoutes = function () {
-        this.app.use(Router_1.default);
         this.app.use(cards_routes_1.default);
     };
     Server.prototype.getPhotos = function () {

@@ -13,6 +13,7 @@ const CardSchema = new Schema(
 );
 
 export interface ICard extends Document {
+  _id: number,
   title: string,
   photoPath: string,
   description: string,
