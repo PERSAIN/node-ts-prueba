@@ -7,8 +7,10 @@ var express_1 = __importDefault(require("express"));
 var morgan_1 = __importDefault(require("morgan"));
 var cors_1 = __importDefault(require("cors"));
 var helmet_1 = __importDefault(require("helmet"));
+var path_1 = __importDefault(require("path"));
 var config_1 = __importDefault(require("./config"));
-var AppRouter_1 = __importDefault(require("./routes/AppRouter"));
+var Router_1 = __importDefault(require("./routes/Router"));
+var cards_routes_1 = __importDefault(require("./routes/cards.routes"));
 var config = config_1.default.getInstance();
 var Server = /** @class */ (function () {
     function Server() {
@@ -16,6 +18,7 @@ var Server = /** @class */ (function () {
         this.createServer();
         this.middlewares();
         this.getRoutes();
+        this.getPhotos();
         this.startServer();
     }
     Server.prototype.getApp = function () {
@@ -32,7 +35,11 @@ var Server = /** @class */ (function () {
         this.app.use((0, helmet_1.default)());
     };
     Server.prototype.getRoutes = function () {
-        this.app.use(AppRouter_1.default.getInstance());
+        this.app.use(Router_1.default);
+        this.app.use(cards_routes_1.default);
+    };
+    Server.prototype.getPhotos = function () {
+        this.app.use('/uploads', express_1.default.static(path_1.default.resolve('uploads')));
     };
     Server.prototype.startServer = function () {
         var _this = this;

@@ -1,19 +1,14 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-var express_1 = __importDefault(require("express"));
-var AppRouter = /** @class */ (function () {
-    function AppRouter() {
+exports.Routes = void 0;
+var express_1 = require("express");
+var Routes = /** @class */ (function () {
+    function Routes() {
+        this.router = (0, express_1.Router)(); //inicializa la capacidad de crear rutas con express
     }
-    AppRouter.getInstance = function () {
-        if (!AppRouter.instance) {
-            AppRouter.instance = express_1.default.Router();
-        }
-        return AppRouter.instance;
-    };
-    return AppRouter;
+    return Routes;
 }());
-exports.default = AppRouter;
+exports.Routes = Routes;
+var routes = new Routes();
+exports.default = routes.router;
 //# sourceMappingURL=AppRouter.js.map

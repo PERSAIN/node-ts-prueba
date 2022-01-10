@@ -25,20 +25,21 @@ var CardRoutes = /** @class */ (function (_super) {
     __extends(CardRoutes, _super);
     function CardRoutes() {
         var _this = _super.call(this) || this;
-        _this.cardController = new cardsController_1.default();
         _this.routes();
         return _this;
     }
     CardRoutes.prototype.routes = function () {
+        var cardsController = new cardsController_1.default();
         this.router
-            .get(this.cardController.getCard)
-            .post(multer_1.default.single('photo'), this.cardController.createCard)
-            .put(this.cardController.updateCard)
-            .delete(this.cardController.deleteCard);
-        this.router.route('/cards').get(this.cardController.getCards);
+            .route('/card')
+            .get(cardsController.getCard)
+            .post(multer_1.default.single('photo'), cardsController.createCard)
+            .put(cardsController.updateCard)
+            .delete(cardsController.deleteCard);
+        this.router.route('/cards').get(cardsController.getCards);
     };
     return CardRoutes;
 }(Router_1.RouterInitializer));
 var cardRoutes = new CardRoutes();
 exports.default = cardRoutes.router;
-//# sourceMappingURL=CardRoutes.js.map
+//# sourceMappingURL=cards.routes.js.map
