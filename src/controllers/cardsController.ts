@@ -15,6 +15,17 @@ export default class CardsController {
     }
   }
 
+  async getCardSearched(req: Request, res: Response) : Promise<Response>{
+    try {
+      const { searchedValue } = req.body;
+      console.log(searchedValue);
+      const cards = await CardModel.find({$text: {$search:`${searchedValue}`}});
+      return res.status(200).json(cards);
+    } catch (error) {
+      return res.status(404).json(error);
+    }
+  }
+
   async getCards(req: Request, res: Response): Promise<Response> {
     try {
       const cards = await CardModel.find();

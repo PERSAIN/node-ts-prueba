@@ -65,9 +65,30 @@ var CardsController = /** @class */ (function () {
             });
         });
     };
+    CardsController.prototype.getCardSearched = function (req, res) {
+        return __awaiter(this, void 0, void 0, function () {
+            var searchedValue, cards, error_2;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        searchedValue = req.body.searchedValue;
+                        console.log(searchedValue);
+                        return [4 /*yield*/, CardModel_1.default.find({ $text: { $search: "".concat(searchedValue) } })];
+                    case 1:
+                        cards = _a.sent();
+                        return [2 /*return*/, res.status(200).json(cards)];
+                    case 2:
+                        error_2 = _a.sent();
+                        return [2 /*return*/, res.status(404).json(error_2)];
+                    case 3: return [2 /*return*/];
+                }
+            });
+        });
+    };
     CardsController.prototype.getCards = function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
-            var cards, error_2;
+            var cards, error_3;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -77,8 +98,8 @@ var CardsController = /** @class */ (function () {
                         cards = _a.sent();
                         return [2 /*return*/, res.status(200).json(cards)];
                     case 2:
-                        error_2 = _a.sent();
-                        return [2 /*return*/, res.status(404).json(error_2)];
+                        error_3 = _a.sent();
+                        return [2 /*return*/, res.status(404).json(error_3)];
                     case 3: return [2 /*return*/];
                 }
             });
@@ -109,7 +130,7 @@ var CardsController = /** @class */ (function () {
     };
     CardsController.prototype.updateCard = function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
-            var id, _a, title, description, updatedCard, error_3;
+            var id, _a, title, description, updatedCard, error_4;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
@@ -127,8 +148,8 @@ var CardsController = /** @class */ (function () {
                                 updatedCard: updatedCard
                             })];
                     case 2:
-                        error_3 = _b.sent();
-                        return [2 /*return*/, res.status(404).json(error_3)];
+                        error_4 = _b.sent();
+                        return [2 /*return*/, res.status(404).json(error_4)];
                     case 3: return [2 /*return*/];
                 }
             });
@@ -136,7 +157,7 @@ var CardsController = /** @class */ (function () {
     };
     CardsController.prototype.deleteCard = function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
-            var id, card, error_4;
+            var id, card, error_5;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -152,8 +173,8 @@ var CardsController = /** @class */ (function () {
                         _a.label = 3;
                     case 3: return [2 /*return*/, res.status(202).json({ message: 'cardDeleted', card: card })];
                     case 4:
-                        error_4 = _a.sent();
-                        return [2 /*return*/, res.status(404).json(error_4)];
+                        error_5 = _a.sent();
+                        return [2 /*return*/, res.status(404).json(error_5)];
                     case 5: return [2 /*return*/];
                 }
             });

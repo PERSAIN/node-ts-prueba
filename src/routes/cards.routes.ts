@@ -17,6 +17,7 @@ class CardRoutes extends RouterInitializer {
       .delete(cardsController.deleteCard);
 
     this.router.route('/cards/:id').get(cardsController.getCard);
+    this.router.route('/cards/searched').post(cardsController.getCardSearched);
   }
 }
 

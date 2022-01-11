@@ -37,6 +37,7 @@ var CardRoutes = /** @class */ (function (_super) {
             .put(cardsController.updateCard)
             .delete(cardsController.deleteCard);
         this.router.route('/cards/:id').get(cardsController.getCard);
+        this.router.route('/cards/searched').post(cardsController.getCardSearched);
     };
     return CardRoutes;
 }(Router_1.RouterInitializer));

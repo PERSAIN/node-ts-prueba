@@ -12,6 +12,8 @@ const CardSchema = new Schema(
   }
 );
 
+CardSchema.index({title:'text'});
+
 export interface ICard extends Document {
   _id: number,
   title: string,

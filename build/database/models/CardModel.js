@@ -9,5 +9,6 @@ var CardSchema = new mongoose_1.Schema({
 }, {
     timestamps: true // add "created at and updated at"
 });
+CardSchema.index({ title: 'text' });
 exports.default = (0, mongoose_1.model)('Card', CardSchema);
 //# sourceMappingURL=CardModel.js.map
