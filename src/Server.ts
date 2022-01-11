@@ -33,7 +33,7 @@ export default class Server {
     this.app.use(express.urlencoded({ extended: false }));
     this.app.use(express.json());// Is based in bodyParser
     this.app.use(cors());
-    this.app.use(helmet());
+    /* this.app.use(helmet()); */
   }
 
   private getRoutes(): void {
