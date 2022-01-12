@@ -24,7 +24,7 @@ after that you can install mongoDB Compass, this is an UI to see all the collect
 finally you have to run your database, running sudo service mongod start\
 Now you have mongo WORKING!
 
-#In this project we have a crud, so pls use postman or insomnia to send all the information the server need to save, the endpoint is a post and the route is localhost:3000/cards
+## In this project we have a crud, so pls use postman or insomnia to send all the information the server need to save, the endpoint is a post and the route is localhost:3000/cards
 
 
 
