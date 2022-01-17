@@ -1,12 +1,19 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.RouterInitializer = void 0;
-var express_1 = require("express");
-var RouterInitializer = /** @class */ (function () {
-    function RouterInitializer() {
-        this.router = (0, express_1.Router)(); //inicializa la capacidad de crear rutas con express
+var express_1 = __importDefault(require("express"));
+var Router = /** @class */ (function () {
+    function Router() {
     }
-    return RouterInitializer;
+    Router.getInstance = function () {
+        if (!Router.instance) {
+            Router.instance = express_1.default.Router();
+        }
+        return Router.instance;
+    };
+    return Router;
 }());
-exports.RouterInitializer = RouterInitializer;
+exports.default = Router;
 //# sourceMappingURL=Router.js.map

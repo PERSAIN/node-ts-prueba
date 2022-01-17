@@ -20,7 +20,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var multer_1 = __importDefault(require("../middlewares/multer"));
 var cardsController_1 = require("../controllers/cardsController");
-var Router_1 = require("./Router");
+var RouterInitialiazer_1 = require("./RouterInitialiazer");
 var CardRoutes = /** @class */ (function (_super) {
     __extends(CardRoutes, _super);
     function CardRoutes() {
@@ -40,7 +40,7 @@ var CardRoutes = /** @class */ (function (_super) {
         this.router.route('/cards/searched').post(cardsController.getCardSearched);
     };
     return CardRoutes;
-}(Router_1.RouterInitializer));
+}(RouterInitialiazer_1.RouterInitializer));
 var cardRoutes = new CardRoutes();
 exports.default = cardRoutes.router;
 //# sourceMappingURL=cards.routes.js.map

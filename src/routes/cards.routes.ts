@@ -1,6 +1,6 @@
 import multer from '../middlewares/multer';
 import { CardsControllerOld } from '../controllers/cardsController';
-import { RouterInitializer } from './Router';
+import { RouterInitializer } from './RouterInitialiazer';
 
 class CardRoutes extends RouterInitializer {
   constructor() {

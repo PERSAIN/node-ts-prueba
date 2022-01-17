@@ -4,8 +4,7 @@ import fs from 'fs-extra';
 import CardModel, { ICard } from '../database/models/CardModel';
 
 //importing all decorators functions
-import { get } from './decorators/routes.decorator';
-import { controller } from './decorators/controller.decorator';
+import { get, controller } from './decorators';
 
 @controller('/cards')
 export class CardsController {

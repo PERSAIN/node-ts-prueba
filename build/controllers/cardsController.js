@@ -53,8 +53,7 @@ var path_1 = __importDefault(require("path"));
 var fs_extra_1 = __importDefault(require("fs-extra"));
 var CardModel_1 = __importDefault(require("../database/models/CardModel"));
 //importing all decorators functions
-var routes_decorator_1 = require("./decorators/routes.decorator");
-var controller_decorator_1 = require("./decorators/controller.decorator");
+var decorators_1 = require("./decorators");
 var CardsController = /** @class */ (function () {
     function CardsController() {
     }
@@ -79,13 +78,13 @@ var CardsController = /** @class */ (function () {
         });
     };
     __decorate([
-        (0, routes_decorator_1.get)('/:id'),
+        (0, decorators_1.get)('/:id'),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", [Object, Object]),
         __metadata("design:returntype", Promise)
     ], CardsController.prototype, "getCard", null);
     CardsController = __decorate([
-        (0, controller_decorator_1.controller)('/cards')
+        (0, decorators_1.controller)('/cards')
     ], CardsController);
     return CardsController;
 }());
@@ -229,7 +228,7 @@ var CardsControllerOld = /** @class */ (function () {
         });
     };
     __decorate([
-        (0, routes_decorator_1.get)('/'),
+        (0, decorators_1.get)('/'),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", [Object, Object]),
         __metadata("design:returntype", Promise)

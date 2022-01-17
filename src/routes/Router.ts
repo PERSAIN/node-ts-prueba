@@ -1,10 +1,12 @@
-import { Router } from 'express';
+import express from 'express';
 
-export class RouterInitializer {
-  router: Router;
+export default class Router {
+  private static instance: express.Router;
 
-  constructor() {
-    this.router = Router(); //inicializa la capacidad de crear rutas con express
+  static getInstance(): express.Router {
+    if(!Router.instance){
+      Router.instance = express.Router();
+    }
+    return Router.instance;
   }
 }
-
