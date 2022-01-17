@@ -1,4 +1,6 @@
 import 'reflect-metadata';
+import { HttpMethods } from './enums/HttpMethodsEnum';
+import { MetaDataKeys } from './enums/MetaDataKeysEnum';
 
 //reflect-metada is a library that will help us to save metada in an object
 //in this case prototype from our classes
@@ -23,17 +25,17 @@ const routerBinder = (method: string) => {
     return (target: any, key: string, desc: PropertyDescriptor) => {
       console.log('target =>', target);
       console.log('key =>', key);
-      Reflect.defineMetadata('path', path, target, key);
-      Reflect.defineMetadata('method', method, target, key);
+      Reflect.defineMetadata(MetaDataKeys.path, path, target, key);
+      Reflect.defineMetadata(MetaDataKeys.method, method, target, key);
     };
   };
 };
 
-const get = routerBinder('get');
-const post = routerBinder('post');
-const put = routerBinder('put');
-const del = routerBinder('delete');
-const patch = routerBinder('patch');
+const get = routerBinder(HttpMethods.get);
+const post = routerBinder(HttpMethods.post);
+const put = routerBinder(HttpMethods.put);
+const del = routerBinder(HttpMethods.del);
+const patch = routerBinder(HttpMethods.patch);
 //we can keep adding httpmethos with this code
 
 export { get, post, put, del, patch, example };
