@@ -1,10 +1,25 @@
 import { Request, Response } from 'express';
 import path from 'path';
 import fs from 'fs-extra';
-
 import CardModel, { ICard } from '../database/models/CardModel';
 
-export default class CardsController {
+//importing all decorators functions
+import { get } from './decorators/routes';
+
+/* @controller('/cards') */
+export class CardsController {
+  @get('/:id')
+  async getCard(req: Request, res: Response): Promise<Response> {
+    try {
+      const { id } = req.params;
+      const card = await CardModel.findById(id);
+      return res.status(200).json(card);
+    } catch (error) {
+      return res.status(404).json(error);
+    }
+  }
+}
+export class CardsControllerOld {
   async getCard(req: Request, res: Response): Promise<Response> {
     try {
       const { id } = req.params;
@@ -15,11 +30,11 @@ export default class CardsController {
     }
   }
 
-  async getCardSearched(req: Request, res: Response) : Promise<Response>{
+  async getCardSearched(req: Request, res: Response): Promise<Response> {
     try {
       const { searchedValue } = req.body;
       console.log(searchedValue);
-      const cards = await CardModel.find({$text: {$search:`${searchedValue}`}});
+      const cards = await CardModel.find({ $text: { $search: `${searchedValue}` } });
       return res.status(200).json(cards);
     } catch (error) {
       return res.status(404).json(error);

@@ -19,7 +19,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var multer_1 = __importDefault(require("../middlewares/multer"));
-var cardsController_1 = __importDefault(require("../controllers/cardsController"));
+var cardsController_1 = require("../controllers/cardsController");
 var Router_1 = require("./Router");
 var CardRoutes = /** @class */ (function (_super) {
     __extends(CardRoutes, _super);
@@ -29,7 +29,7 @@ var CardRoutes = /** @class */ (function (_super) {
         return _this;
     }
     CardRoutes.prototype.routes = function () {
-        var cardsController = new cardsController_1.default();
+        var cardsController = new cardsController_1.CardsControllerOld();
         this.router
             .route('/cards')
             .get(cardsController.getCards)

@@ -1,5 +1,5 @@
 import multer from '../middlewares/multer';
-import CardsController from '../controllers/cardsController';
+import { CardsControllerOld } from '../controllers/cardsController';
 import { RouterInitializer } from './Router';
 
 class CardRoutes extends RouterInitializer {
@@ -8,7 +8,7 @@ class CardRoutes extends RouterInitializer {
     this.routes();
   }
   routes() {
-    const cardsController = new CardsController();
+    const cardsController = new CardsControllerOld();
     this.router
       .route('/cards')
       .get(cardsController.getCards)
