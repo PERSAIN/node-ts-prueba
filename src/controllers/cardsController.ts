@@ -4,9 +4,10 @@ import fs from 'fs-extra';
 import CardModel, { ICard } from '../database/models/CardModel';
 
 //importing all decorators functions
-import { get } from './decorators/routes';
+import { get } from './decorators/routes.decorator';
+import { controller } from './decorators/controller.decorator';
 
-/* @controller('/cards') */
+@controller('/cards')
 export class CardsController {
   @get('/:id')
   async getCard(req: Request, res: Response): Promise<Response> {
@@ -20,6 +21,7 @@ export class CardsController {
   }
 }
 export class CardsControllerOld {
+  @get('/')
   async getCard(req: Request, res: Response): Promise<Response> {
     try {
       const { id } = req.params;

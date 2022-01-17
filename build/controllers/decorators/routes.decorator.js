@@ -29,4 +29,4 @@ var get = function (path) {
     };
 };
 exports.get = get;
-//# sourceMappingURL=routes.js.map
+//# sourceMappingURL=routes.decorator.js.map
