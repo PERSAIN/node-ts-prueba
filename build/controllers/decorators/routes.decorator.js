@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.example = exports.get = void 0;
+exports.example = exports.patch = exports.del = exports.put = exports.post = exports.get = void 0;
 require("reflect-metadata");
 //reflect-metada is a library that will help us to save metada in an object
 //in this case prototype from our classes
@@ -21,12 +21,24 @@ var example = function (path) {
     };
 };
 exports.example = example;
-var get = function (path) {
-    return function (target, key, desc) {
-        console.log('target =>', target);
-        console.log('key =>', key);
-        Reflect.defineMetadata('path', path, target, key);
+var routerBinder = function (method) {
+    return function (path) {
+        return function (target, key, desc) {
+            console.log('target =>', target);
+            console.log('key =>', key);
+            Reflect.defineMetadata('path', path, target, key);
+            Reflect.defineMetadata('method', method, target, key);
+        };
     };
 };
+var get = routerBinder('get');
 exports.get = get;
+var post = routerBinder('post');
+exports.post = post;
+var put = routerBinder('put');
+exports.put = put;
+var del = routerBinder('delete');
+exports.del = del;
+var patch = routerBinder('patch');
+exports.patch = patch;
 //# sourceMappingURL=routes.decorator.js.map

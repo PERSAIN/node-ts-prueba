@@ -18,13 +18,22 @@ const example = (path: string) => {
     Reflect.defineMetadata('path', path, target, key);
   };
 };
-
-const get = (path: string) => {
-  return (target: any, key: string, desc: PropertyDescriptor) => {
-    console.log('target =>',target);
-    console.log('key =>', key);
-    Reflect.defineMetadata('path', path, target, key);
+const routerBinder = (method: string) => {
+  return (path: string) => {
+    return (target: any, key: string, desc: PropertyDescriptor) => {
+      console.log('target =>', target);
+      console.log('key =>', key);
+      Reflect.defineMetadata('path', path, target, key);
+      Reflect.defineMetadata('method', method, target, key);
+    };
   };
 };
 
-export { get, example };
+const get = routerBinder('get');
+const post = routerBinder('post');
+const put = routerBinder('put');
+const del = routerBinder('delete');
+const patch = routerBinder('patch');
+//we can keep adding httpmethos with this code
+
+export { get, post, put, del, patch, example };
