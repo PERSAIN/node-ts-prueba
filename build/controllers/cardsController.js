@@ -48,27 +48,29 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CardsControllerOld = exports.CardsController = void 0;
+exports.CardsController = void 0;
 var path_1 = __importDefault(require("path"));
 var fs_extra_1 = __importDefault(require("fs-extra"));
 var CardModel_1 = __importDefault(require("../database/models/CardModel"));
 //importing all decorators functions
 var decorators_1 = require("./decorators");
+//importing Middlewares
+var logger_1 = __importDefault(require("../middlewares/logger"));
+var multer_1 = __importDefault(require("../middlewares/multer"));
 var CardsController = /** @class */ (function () {
     function CardsController() {
     }
-    CardsController.prototype.getCard = function (req, res) {
+    CardsController.prototype.getCards = function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
-            var id, card, error_1;
+            var cards, error_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 2, , 3]);
-                        id = req.params.id;
-                        return [4 /*yield*/, CardModel_1.default.findById(id)];
+                        return [4 /*yield*/, CardModel_1.default.find()];
                     case 1:
-                        card = _a.sent();
-                        return [2 /*return*/, res.status(200).json(card)];
+                        cards = _a.sent();
+                        return [2 /*return*/, res.status(200).json(cards)];
                     case 2:
                         error_1 = _a.sent();
                         return [2 /*return*/, res.status(404).json(error_1)];
@@ -77,22 +79,7 @@ var CardsController = /** @class */ (function () {
             });
         });
     };
-    __decorate([
-        (0, decorators_1.get)('/:id'),
-        __metadata("design:type", Function),
-        __metadata("design:paramtypes", [Object, Object]),
-        __metadata("design:returntype", Promise)
-    ], CardsController.prototype, "getCard", null);
-    CardsController = __decorate([
-        (0, decorators_1.controller)('/cards')
-    ], CardsController);
-    return CardsController;
-}());
-exports.CardsController = CardsController;
-var CardsControllerOld = /** @class */ (function () {
-    function CardsControllerOld() {
-    }
-    CardsControllerOld.prototype.getCard = function (req, res) {
+    CardsController.prototype.getCard = function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
             var id, card, error_2;
             return __generator(this, function (_a) {
@@ -112,7 +99,7 @@ var CardsControllerOld = /** @class */ (function () {
             });
         });
     };
-    CardsControllerOld.prototype.getCardSearched = function (req, res) {
+    CardsController.prototype.getCardSearched = function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
             var searchedValue, cards, error_3;
             return __generator(this, function (_a) {
@@ -120,7 +107,6 @@ var CardsControllerOld = /** @class */ (function () {
                     case 0:
                         _a.trys.push([0, 2, , 3]);
                         searchedValue = req.body.searchedValue;
-                        console.log(searchedValue);
                         return [4 /*yield*/, CardModel_1.default.find({ $text: { $search: "".concat(searchedValue) } })];
                     case 1:
                         cards = _a.sent();
@@ -133,26 +119,7 @@ var CardsControllerOld = /** @class */ (function () {
             });
         });
     };
-    CardsControllerOld.prototype.getCards = function (req, res) {
-        return __awaiter(this, void 0, void 0, function () {
-            var cards, error_4;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        _a.trys.push([0, 2, , 3]);
-                        return [4 /*yield*/, CardModel_1.default.find()];
-                    case 1:
-                        cards = _a.sent();
-                        return [2 /*return*/, res.status(200).json(cards)];
-                    case 2:
-                        error_4 = _a.sent();
-                        return [2 /*return*/, res.status(404).json(error_4)];
-                    case 3: return [2 /*return*/];
-                }
-            });
-        });
-    };
-    CardsControllerOld.prototype.createCard = function (req, res) {
+    CardsController.prototype.createCard = function (req, res) {
         var _a;
         return __awaiter(this, void 0, void 0, function () {
             var _b, title, description, shortDescription, newCard, card;
@@ -175,9 +142,9 @@ var CardsControllerOld = /** @class */ (function () {
             });
         });
     };
-    CardsControllerOld.prototype.updateCard = function (req, res) {
+    CardsController.prototype.updateCard = function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
-            var id, _a, title, description, updatedCard, error_5;
+            var id, _a, title, description, updatedCard, error_4;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
@@ -195,16 +162,16 @@ var CardsControllerOld = /** @class */ (function () {
                                 updatedCard: updatedCard
                             })];
                     case 2:
-                        error_5 = _b.sent();
-                        return [2 /*return*/, res.status(404).json(error_5)];
+                        error_4 = _b.sent();
+                        return [2 /*return*/, res.status(404).json(error_4)];
                     case 3: return [2 /*return*/];
                 }
             });
         });
     };
-    CardsControllerOld.prototype.deleteCard = function (req, res) {
+    CardsController.prototype.deleteCard = function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
-            var id, card, error_6;
+            var id, card, error_5;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -220,20 +187,55 @@ var CardsControllerOld = /** @class */ (function () {
                         _a.label = 3;
                     case 3: return [2 /*return*/, res.status(202).json({ message: 'cardDeleted', card: card })];
                     case 4:
-                        error_6 = _a.sent();
-                        return [2 /*return*/, res.status(404).json(error_6)];
+                        error_5 = _a.sent();
+                        return [2 /*return*/, res.status(404).json(error_5)];
                     case 5: return [2 /*return*/];
                 }
             });
         });
     };
     __decorate([
-        (0, decorators_1.get)('/'),
+        (0, decorators_1.get)('/all'),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", [Object, Object]),
         __metadata("design:returntype", Promise)
-    ], CardsControllerOld.prototype, "getCard", null);
-    return CardsControllerOld;
+    ], CardsController.prototype, "getCards", null);
+    __decorate([
+        (0, decorators_1.get)('/:id'),
+        __metadata("design:type", Function),
+        __metadata("design:paramtypes", [Object, Object]),
+        __metadata("design:returntype", Promise)
+    ], CardsController.prototype, "getCard", null);
+    __decorate([
+        (0, decorators_1.post)('/searched'),
+        __metadata("design:type", Function),
+        __metadata("design:paramtypes", [Object, Object]),
+        __metadata("design:returntype", Promise)
+    ], CardsController.prototype, "getCardSearched", null);
+    __decorate([
+        (0, decorators_1.post)('/newcard'),
+        (0, decorators_1.useMiddleware)(logger_1.default),
+        (0, decorators_1.useMiddleware)(multer_1.default.single('photo')),
+        __metadata("design:type", Function),
+        __metadata("design:paramtypes", [Object, Object]),
+        __metadata("design:returntype", Promise)
+    ], CardsController.prototype, "createCard", null);
+    __decorate([
+        (0, decorators_1.put)('/update'),
+        __metadata("design:type", Function),
+        __metadata("design:paramtypes", [Object, Object]),
+        __metadata("design:returntype", Promise)
+    ], CardsController.prototype, "updateCard", null);
+    __decorate([
+        (0, decorators_1.del)('/delete'),
+        __metadata("design:type", Function),
+        __metadata("design:paramtypes", [Object, Object]),
+        __metadata("design:returntype", Promise)
+    ], CardsController.prototype, "deleteCard", null);
+    CardsController = __decorate([
+        (0, decorators_1.controller)('/cards')
+    ], CardsController);
+    return CardsController;
 }());
-exports.CardsControllerOld = CardsControllerOld;
+exports.CardsController = CardsController;
 //# sourceMappingURL=cardsController.js.map

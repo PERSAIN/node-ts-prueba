@@ -5,5 +5,6 @@ var MetaDataKeys;
 (function (MetaDataKeys) {
     MetaDataKeys["method"] = "method";
     MetaDataKeys["path"] = "path";
+    MetaDataKeys["middleware"] = "middleware";
 })(MetaDataKeys = exports.MetaDataKeys || (exports.MetaDataKeys = {}));
 //# sourceMappingURL=MetaDataKeysEnum.js.map

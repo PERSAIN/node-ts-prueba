@@ -5,10 +5,12 @@ import helmet from 'helmet';
 import path from 'path';
 import Config from './config';
 import Router from './routes/Router';
-import CardRoutes from './routes/cards.routes';
+import './controllers/cardsController';
+
 
 const config: Config = Config.getInstance();
 const router = Router.getInstance();
+
 
 export default class Server {
   private app!: express.Application;
@@ -39,7 +41,6 @@ export default class Server {
   }
 
   private getRoutes(): void {
-    this.app.use(CardRoutes);
     this.app.use(router);
   }
 

@@ -1,6 +1,8 @@
 import 'reflect-metadata';
 import { HttpMethods } from './enums/HttpMethodsEnum';
 import { MetaDataKeys } from './enums/MetaDataKeysEnum';
+import { RequestHandler } from 'express';
+
 
 //reflect-metada is a library that will help us to save metada in an object
 //in this case prototype from our classes
@@ -20,14 +22,24 @@ const example = (path: string) => {
     Reflect.defineMetadata('path', path, target, key);
   };
 };
-const routerBinder = (method: string) => {
+
+interface RouteHandlerDescriptor extends PropertyDescriptor{
+  value?: RequestHandler;
+}
+
+const routerBinder = (method: string ) => {
   return (path: string) => {
-    return (target: any, key: string, desc: PropertyDescriptor) => {
-      console.log('target =>', target);
-      console.log('key =>', key);
-      Reflect.defineMetadata(MetaDataKeys.path, path, target, key);
-      Reflect.defineMetadata(MetaDataKeys.method, method, target, key);
-    };
+    if(path){
+      return (target: any, key: string, desc: RouteHandlerDescriptor) => {
+        Reflect.defineMetadata(MetaDataKeys.path, path, target, key);
+        Reflect.defineMetadata(MetaDataKeys.method, method, target, key);
+      };
+    } else {
+      return (target: any, key: string, desc: RouteHandlerDescriptor) => {
+        Reflect.defineMetadata(MetaDataKeys.path, 'empty', target, key);
+        Reflect.defineMetadata(MetaDataKeys.method, method, target, key);
+      };
+    }
   };
 };
 

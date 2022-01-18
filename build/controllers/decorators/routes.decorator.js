@@ -25,12 +25,18 @@ var example = function (path) {
 exports.example = example;
 var routerBinder = function (method) {
     return function (path) {
-        return function (target, key, desc) {
-            console.log('target =>', target);
-            console.log('key =>', key);
-            Reflect.defineMetadata(MetaDataKeysEnum_1.MetaDataKeys.path, path, target, key);
-            Reflect.defineMetadata(MetaDataKeysEnum_1.MetaDataKeys.method, method, target, key);
-        };
+        if (path) {
+            return function (target, key, desc) {
+                Reflect.defineMetadata(MetaDataKeysEnum_1.MetaDataKeys.path, path, target, key);
+                Reflect.defineMetadata(MetaDataKeysEnum_1.MetaDataKeys.method, method, target, key);
+            };
+        }
+        else {
+            return function (target, key, desc) {
+                Reflect.defineMetadata(MetaDataKeysEnum_1.MetaDataKeys.path, 'empty', target, key);
+                Reflect.defineMetadata(MetaDataKeysEnum_1.MetaDataKeys.method, method, target, key);
+            };
+        }
     };
 };
 var get = routerBinder(HttpMethodsEnum_1.HttpMethods.get);
